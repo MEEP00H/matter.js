@@ -4,13 +4,13 @@ const Balls = (world, cw) => {
   mockData().forEach((e, i) => {
     Composite.add(
       world,
-      Bodies.circle(20, 0, 10, {
+      Bodies.circle(15, 0, 10, {
         label: e.type,
-        // friction: 0.03,
-        frictionAir: 0.05,
-        restitution: 1,
-        density: 0.06,
-        frictionStatic: 0,
+        friction: 0,
+        frictionAir: 0.02,
+        restitution: 0.8,
+        density: 0.005,
+        // frictionStatic: 0.5,
         collisionFilter: {
           group: e.type,
         },

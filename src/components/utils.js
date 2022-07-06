@@ -20,6 +20,7 @@ const manageType = (i) => {
   if (i > 75 && i <= 77) {
     return 7;
   }
+  return 0;
 };
 
 export const mockData = () => {

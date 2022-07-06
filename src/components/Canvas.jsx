@@ -2,14 +2,19 @@ import React from "react";
 import { useEffect, useRef } from "react";
 import { Engine, Render, Bodies, World, Composite } from "matter-js";
 import Balls from "./Shape/Balls";
-import Serrated from "./Filters/Serrated";
+import Serrated02 from "./Filters/Serrated02";
+import Grille from "./Filters/Grille";
 import Rect from "./Shape/Rect";
 import { eventCollisionStart } from "./Event";
-import RectFilter from "./Filters/Rect";
+import Triangle from "./Filters/Triangle";
 
 const Canvas = () => {
   const scene = useRef();
-  const engine = useRef(Engine.create());
+  const engine = useRef(
+    Engine.create({
+      enableSleeping: true,
+    })
+  );
 
   useEffect(() => {
     const cw = document.body.clientWidth;
@@ -26,6 +31,7 @@ const Canvas = () => {
         width: cw,
         height: ch,
         wireframes: false,
+        showSleeping: false,
         showDebug: true,
         background: "transparent",
       },
@@ -37,14 +43,19 @@ const Canvas = () => {
       Bodies.rectangle(cw / 2, ch + 10, cw, 20, { isStatic: true }),
       Bodies.rectangle(cw + 10, ch / 2, 20, ch, { isStatic: true }),
     ]);
-    const rect1 = Rect(300, 300, 800, 20, "test", 3.5, 1);
-    const rect2 = Rect(300, 300, 800, 20, "test", 3.5, 2);
+    const rect1 = Rect(300, 300, 800, 40, "Filter1", 3.4, 1);
+    const rect2 = Rect(300, 300, 800, 40, "Filter2", 3.4, 2);
+    const rect3 = Rect(300, 900, 800, 40, "Filter2", 3.5, 3);
+
     eventCollisionStart(current);
-    RectFilter(current.world, "circle1", 70, 700, 600);
-    Serrated(current.world, 725, 800);
+    Serrated02(current.world, 770, 650);
+    Triangle(current.world, 790, 555, 4.7, 1);
+    Triangle(current.world, 770, 550, 3.7, 2);
+    Grille(current.world, 800, 1200, 3);
     Balls(current.world, cw);
 
-    Composite.add(current.world, [rect1, rect2]);
+    Composite.add(current.world, [rect1, rect2, rect3]);
+
     Engine.clear(current);
     Engine.run(current);
     Render.run(render);
