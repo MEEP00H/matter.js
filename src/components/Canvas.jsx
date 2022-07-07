@@ -20,7 +20,7 @@ const Canvas = () => {
   useEffect(() => {
     const cw = document.body.clientWidth;
     //1440 document.body.clientWidth
-    console.log(cw);
+
     const ch = 4734;
     //4734
     const current = engine.current;
@@ -50,7 +50,7 @@ const Canvas = () => {
     // Triangle(current.world, 770, 550, 3.7, 0x0002);
     // Grille(current.world, 800, 1200, 3);
 
-    Balls(current.world, 500);
+    Balls(current.world, 0);
     Balls(current.world, cw - 60);
 
     //Filter01
@@ -73,7 +73,7 @@ const Canvas = () => {
     //
     Composite.add(current.world, [
       //start
-      Rect(600, calPercent(7, ch), 1200, 40, "Start1", 3.4, 0x0000, 1),
+      Rect(cw / 10, calPercent(3, ch), 1200, 40, "Start1", 3.4, 0x0000, 1),
       Rect(cw + 50, calPercent(10, ch), cw, 40, "Start2", 6.025, 0x0000, 1),
       //
       // Rect(300, 300, 800, 40, "Filter1", 3.4, 0x0001),
