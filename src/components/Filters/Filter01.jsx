@@ -1,9 +1,11 @@
 import "pathseg";
 import { Bodies, Svg, Composite, Common, Vertices } from "matter-js";
-const Triangle = (world, x, y, angle, category, s) => {
+const Filter01 = (world, x, y, s) => {
   var vertexSets = [];
   Common.setDecomp(require("poly-decomp"));
-  const paths = ["M 191.276 278.018 L 224.621 299.474 L 157.93 299.474 L 191.276 278.018 Z"];
+  const paths = [
+    "M 208.601 211.106 L 50.708 323.036 L 203.152 257.674 L 239.732 258.084 L 403.619 317.158 L 233.718 211.425 L 208.601 211.106 Z",
+  ];
   paths.forEach((path, i) => {
     var newElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
     newElement.setAttribute("d", path);
@@ -16,15 +18,10 @@ const Triangle = (world, x, y, angle, category, s) => {
       Vertices.scale(points, s, s),
       {
         isStatic: true,
-        label: "Triangle",
-        angle: angle,
-        collisionFilter: {
-          group: category,
-          mask: 0,
-        },
+        label: "Filter01",
         render: {
-          fillStyle: "red",
-          strokeStyle: "transparent",
+          fillStyle: "black",
+          strokeStyle: "black",
           lineWidth: 1,
         },
       },
@@ -35,4 +32,4 @@ const Triangle = (world, x, y, angle, category, s) => {
     Composite.add(world, vertexSets);
   });
 };
-export default Triangle;
+export default Filter01;

@@ -1,16 +1,15 @@
 import { Bodies, Composite } from "matter-js";
 import { mockData, setColor } from "../utils";
-const Balls = (world, cw) => {
-  mockData().forEach((e, i) => {
+const Balls = (world, x) => {
+  mockData().forEach((e, _) => {
     Composite.add(
       world,
-      Bodies.circle(15, 0, 10, {
+      Bodies.circle(x, 0, 12, {
         label: e.type,
         friction: 0,
-        frictionAir: 0.02,
-        restitution: 0.8,
-        density: 0.005,
-        // frictionStatic: 0.5,
+        frictionAir: 0.03,
+        restitution: 0.9,
+        density: 0.003,
         collisionFilter: {
           group: e.type,
         },

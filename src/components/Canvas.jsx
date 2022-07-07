@@ -5,8 +5,9 @@ import Balls from "./Shape/Balls";
 import Serrated02 from "./Filters/Serrated02";
 import Grille from "./Filters/Grille";
 import Rect from "./Shape/Rect";
-import { eventCollisionStart } from "./Event";
 import Triangle from "./Filters/Triangle";
+import { calPercent } from "./utils";
+import Filter01 from "./Filters/Filter01";
 
 const Canvas = () => {
   const scene = useRef();
@@ -18,9 +19,9 @@ const Canvas = () => {
 
   useEffect(() => {
     const cw = document.body.clientWidth;
-    //1440
-
-    const ch = document.body.clientHeight;
+    //1440 document.body.clientWidth
+    console.log(cw);
+    const ch = 4734;
     //4734
     const current = engine.current;
 
@@ -43,20 +44,45 @@ const Canvas = () => {
       Bodies.rectangle(cw / 2, ch + 10, cw, 20, { isStatic: true }),
       Bodies.rectangle(cw + 10, ch / 2, 20, ch, { isStatic: true }),
     ]);
-    const rect1 = Rect(300, 300, 800, 40, "Filter1", 3.4, 1);
-    const rect2 = Rect(300, 300, 800, 40, "Filter2", 3.4, 2);
-    const rect3 = Rect(300, 900, 800, 40, "Filter2", 3.5, 3);
 
-    eventCollisionStart(current);
-    Serrated02(current.world, 770, 650);
-    Triangle(current.world, 790, 555, 4.7, 1);
-    Triangle(current.world, 770, 550, 3.7, 2);
-    Grille(current.world, 800, 1200, 3);
-    Balls(current.world, cw);
+    // Serrated02(current.world, 770, 650);
+    // Triangle(current.world, 790, 555, 4.7, 0x0001);
+    // Triangle(current.world, 770, 550, 3.7, 0x0002);
+    // Grille(current.world, 800, 1200, 3);
 
-    Composite.add(current.world, [rect1, rect2, rect3]);
+    Balls(current.world, 500);
+    Balls(current.world, cw - 60);
 
-    Engine.clear(current);
+    //Filter01
+    Filter01(current.world, cw / 2, calPercent(25, ch), 2.75);
+    Triangle(current.world, cw / 2 - 18, calPercent(20.5, ch), 3.6, 0x0001, 5);
+    Triangle(current.world, cw / 2 - 18, calPercent(21.5, ch), 3.6, 0x0002, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(18.5, ch), 2.0, 0x0003, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(16.5, ch), 2.8, 0x0004, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(22.5, ch), 2.6, 0x0005, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(22.5, ch), 2.7, 0x0006, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(21.5, ch), 2.5, 0x0007, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(23.5, ch), 2.4, 0x0008, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(23.5, ch), 2.4, 0x0009, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(23.5, ch), 2.4, 0x0010, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(23.5, ch), 2.4, 0x0011, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(23.5, ch), 2.4, 0x0012, 5);
+    Triangle(current.world, cw / 2 + 17, calPercent(23.5, ch), 2.4, 0x0013, 5);
+
+    // Triangle(current.world, 790, 555, 4.7, 0x0001);
+    //
+    Composite.add(current.world, [
+      //start
+      Rect(600, calPercent(7, ch), 1200, 40, "Start1", 3.4, 0x0000, 1),
+      Rect(cw + 50, calPercent(10, ch), cw, 40, "Start2", 6.025, 0x0000, 1),
+      //
+      // Rect(300, 300, 800, 40, "Filter1", 3.4, 0x0001),
+      //rect1
+      // Rect(300, 900, 800, 40, "Filter2", 3.5, 0x0003),
+      // Rect(300, 900, 800, 40, "Filter2", 3.5, 0x0004),
+      // Rect(300, 900, 800, 40, "Filter2", 3.5, 0x0002),
+    ]);
+
     Engine.run(current);
     Render.run(render);
 
